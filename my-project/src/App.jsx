@@ -22,7 +22,7 @@ function App() {const [isClient, setIsClient] = useState(true);
   const [companyName, setCompanyName] = useState('');
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [currentlyWork, SetCurrentlyWork] = useState(Boolean)
+  const [location, setLocation] = useState('')
   const [empStatus, SetEmpStatus] = useState('')
   const [checkVal, setCheckVal] = useState('N');
 
@@ -57,6 +57,11 @@ function App() {const [isClient, setIsClient] = useState(true);
   // Employment status (status buttons)
   const empStatusHandle = (event) => {
     SetEmpStatus(event.target.value)
+  }
+
+  //location
+  const locationHandler = (text) =>{
+    setLocation(text.target.value)
   }
 
   return (
@@ -111,7 +116,7 @@ function App() {const [isClient, setIsClient] = useState(true);
         {/* input location */}
         <Box sx={{display:'flex', flexDirection:'column', padding: 2, justifyContent: 'space-between'}}>
             <Typography sx={{paddingX: 2}} align='start'>Location</Typography>
-            <TextField sx={{width : '100%'}} id="outlined-basic" placeholder="Dwarka, New Delhi" variant="outlined" />
+            <TextField onChange={(text) => locationHandler(text)} sx={{width : '100%'}} id="outlined-basic" placeholder="Dwarka, New Delhi" variant="outlined" />
         </Box>
 
         {/* employment status buttons + overflow style */}
@@ -192,6 +197,8 @@ function App() {const [isClient, setIsClient] = useState(true);
             endDate={endDate}
             present={checkVal} 
             RR={value}
+            location={location}
+            role={empStatus}
           />
           </Box>
       </Box>
