@@ -28,7 +28,6 @@ function App() {
   const [empStatus, SetEmpStatus] = useState('')
   const [checkVal, setCheckVal] = useState('N');
 
-  console.log(jobTitle.target.value)
 
   // jobTitle handler
   const jobTitleHandler = (text) =>{
@@ -134,11 +133,11 @@ function App() {
 
         <Box sx={{display: 'flex', justifyContent: 'space-between', paddingX: 2}}>
           <Box>
-            <Button ><Typography fontSize={'0.5rem'} color={'primary'}>I will do this later</Typography></Button>
+            <Button ><Typography fontSize={'0.7rem'} color={'primary'}>I will do this later</Typography></Button>
           </Box>
           <Box>
-            <Button startIcon={<ArrowBackOutlinedIcon />}>Back</Button>
-            <Button endIcon={<ArrowForwardOutlinedIcon />}>Next</Button>
+            <Button sx={{marginRight: '5px'}} variant='outlined' startIcon={<ArrowBackOutlinedIcon />}>Back</Button>
+            <Button variant='outlined' endIcon={<ArrowForwardOutlinedIcon />}>Next</Button>
           </Box>
         </Box>
 
