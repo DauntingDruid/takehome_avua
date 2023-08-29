@@ -8,7 +8,7 @@ import 'react-quill/dist/quill.snow.css';
 import { useState } from 'react';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-import { ResumeDisplay } from './components/resumeDisplay';
+import ResumeDisplay from './components/resumeDisplay';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -16,10 +16,8 @@ const toolbarOptions = {
   toolbar:[['bold', 'italic', 'underline'],[{ 'list': 'bullet' }]]
 }
 
-function App() {
-  const [value, setValue] = useState('');
-  const [userInfo, setUserInfo] = useState('');
-  
+function App() {const [isClient, setIsClient] = useState(true);
+  const [value, setValue] = useState('');  
   const [jobTitle, setJobTitle] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [startDate, setStartDate] = useState(null);
@@ -28,6 +26,9 @@ function App() {
   const [empStatus, SetEmpStatus] = useState('')
   const [checkVal, setCheckVal] = useState('N');
 
+  const handleClient = () => {
+    setIsClient(!isClient);
+  };
 
   // jobTitle handler
   const jobTitleHandler = (text) =>{
@@ -52,14 +53,11 @@ function App() {
   const currentlyWorkHandler = () =>{
     setCheckVal(checkVal === 'Y' ? 'N' : 'Y')
   }
-  // Location 
   
   // Employment status (status buttons)
   const empStatusHandle = (event) => {
     SetEmpStatus(event.target.value)
   }
-  // Roles & Responsibilities {rich text editor}
-  // Skills [array]
 
   return (
     <>
@@ -161,9 +159,41 @@ function App() {
       </Box>
       {/* resume builder */}
       
-      <Box sx={{width: '50%',minHeight: '80vh', backgroundColor: '#9DB2BF'}}>
+      <Box sx={{width: '49%',minHeight: '80vh', backgroundColor: '#f7f3ff', paddingX: 5,paddingTop: 2}}>
           {/* render userInfo */}
-          <ResumeDisplay userInfo={userInfo} />
+          <div
+              onClick={() => handleClient()}
+              className="flex mb-2 p-1 w-52 h-12 justify-between border-solid border-2 rounded-full bg-purple-800 ml-auto"
+            >
+              <div
+                className={
+                  isClient
+                    ? "bg-white text-purple-800 font-bold h-full w-full flex justify-center items-center rounded-full text-center cursor-pointer transition-all duration-200 ease-linear"
+                    : "h-full w-full flex justify-center items-center rounded-full text-center text-white cursor-pointer transition-all duration-200 ease-linear"
+                }
+              >
+                Resume
+              </div>
+              <div
+                className={
+                  !isClient
+                    ? "bg-white text-purple-800 font-bold h-full w-full flex justify-center items-center rounded-full text-center cursor-pointer transition-all duration-200 ease-linear"
+                    : "h-full w-full flex justify-center items-center rounded-full text-center text-white cursor-pointer transition-all duration-200 ease-linear"
+                }
+              >
+                Sample
+              </div>
+            </div>
+          <Box sx={{width: '100%', height:'100%', backgroundColor: 'white', padding: 3}}>
+          <ResumeDisplay 
+            jobTitle={jobTitle}
+            companyName={companyName}
+            startDate={startDate} 
+            endDate={endDate}
+            present={checkVal} 
+            RR={value}
+          />
+          </Box>
       </Box>
     </Box>
     </>
