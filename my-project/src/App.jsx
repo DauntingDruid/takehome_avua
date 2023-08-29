@@ -113,7 +113,7 @@ function App() {
         {/* input location */}
         <Box sx={{display:'flex', flexDirection:'column', padding: 2, justifyContent: 'space-between'}}>
             <Typography sx={{paddingX: 2}} align='start'>Location</Typography>
-            <TextField sx={{width : '100%'}} id="outlined-basic" variant="outlined" />
+            <TextField sx={{width : '100%'}} id="outlined-basic" placeholder="Dwarka, New Delhi" variant="outlined" />
         </Box>
 
         {/* employment status buttons + overflow style */}
