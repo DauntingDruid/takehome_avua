@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, FormControlLabel, FormGroup, TextField, Typography } from '@mui/material'
+import { Box, Button, Checkbox, Chip, FormControlLabel, FormGroup, TextField, Typography } from '@mui/material'
 import './App.css'
 import { Header } from './components/header'
 import {HorizontalStepper} from './components/stepper'
@@ -22,8 +22,8 @@ function App() {
   
   const [jobTitle, setJobTitle] = useState('');
   const [companyName, setCompanyName] = useState('');
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [currentlyWork, SetCurrentlyWork] = useState(Boolean)
   const [empStatus, SetEmpStatus] = useState('')
   const [checkVal, setCheckVal] = useState('N');
@@ -40,10 +40,12 @@ function App() {
   }
   // Start Date
   const startDateHandler =(date) =>{
+    console.log(date)
     setStartDate(date)
   }
   // End Date
   const endDateHandler =(date) =>{
+    console.log(date)
     setEndDate(date)
   }
   // currently work here
@@ -77,22 +79,30 @@ function App() {
 
         {/* 1st row */}
         <Box sx={{display:'flex', padding: 2, justifyContent: 'space-between'}}>
-          {/* <FormControl>
-            <FormHelperText id="my-helper-text">Job Title</FormHelperText>
-            <TextField variant='outlined' id="my-input" aria-describedby="my-helper-text" />    
-          </FormControl> */}
-            <TextField onChange={(text) => jobTitleHandler(text)} sx={{width : '49%'}} id="outlined-basic" label="Job Title *" variant="outlined" />
-            <TextField onChange={(text) => companyNameHandler(text)} sx={{width : '49%'}} id="outlined-basic" label="Company Name *" variant="outlined" />
+            <Box sx={{width: '100%'}}>
+            <Typography sx={{paddingX: 2}} align='start'> Employment status</Typography>
+            <TextField onChange={(text) => jobTitleHandler(text)} sx={{width : '98%'}} id="outlined-basic" variant="outlined" />
+            </Box>
+            <Box sx={{width: '100%'}}>
+            <Typography sx={{paddingX: 2}} align='start'> Company Name</Typography>
+            <TextField onChange={(text) => companyNameHandler(text)} sx={{width : '98%'}} id="outlined-basic" variant="outlined" />
+            </Box>
         </Box>
 
         {/* DATES */}
         <Box sx={{display:'flex', padding: 2, justifyContent: 'space-between'}}>
-            <Box sx={{width : '49%',borderWidth: '2px', padding: 1}}>
-              <DatePicker title='startDate' showIcon={true} selected={startDate} onChange={(date) => startDateHandler(date)} />
+            <Box sx={{width: '100%'}}>
+              <Typography sx={{paddingX: 2}} align='start'> Start Date</Typography>
+              <Box width={checkVal == 'Y'?'48%':'98%'} sx={{borderWidth: '2px', padding: 1}}>
+                <DatePicker dateFormat="dd MMM yyyy" title='startDate' showIcon={true} selected={startDate} onChange={(date) => startDateHandler(date)} />
+              </Box>
             </Box>
-            <Box sx={{width : '49%',borderWidth: '2px', padding: 1}}>
-              <DatePicker title='endDate' showIcon={true} disabled={checkVal === 'Y' ? true : false} selected={endDate} onChange={(date) => endDateHandler(date)} />
-            </Box>  
+            <Box hidden={checkVal == 'Y'?true:false} sx={{width: '100%'}}>
+              <Typography sx={{paddingX: 2}} align='start'> End Date</Typography>
+              <Box sx={{width : '98%',borderWidth: '2px', padding: 1}}>
+                <DatePicker dateFormat="dd MMM yyyy" title='endDate' showIcon={true} disabled={checkVal === 'Y' ? true : false} selected={endDate} onChange={(date) => endDateHandler(date)} />
+              </Box>  
+            </Box>
         </Box>
         {/* checkbox */}
         <FormGroup sx={{display:'flex', paddingX: 2}}>
@@ -101,8 +111,9 @@ function App() {
         
 
         {/* input location */}
-        <Box sx={{display:'flex', padding: 2, justifyContent: 'space-between'}}>
-            <TextField sx={{width : '49%'}} id="outlined-basic" label="Location" variant="outlined" />
+        <Box sx={{display:'flex', flexDirection:'column', padding: 2, justifyContent: 'space-between'}}>
+            <Typography sx={{paddingX: 2}} align='start'>Location</Typography>
+            <TextField sx={{width : '100%'}} id="outlined-basic" variant="outlined" />
         </Box>
 
         {/* employment status buttons + overflow style */}
@@ -116,11 +127,9 @@ function App() {
         </Box>
 
         {/* textbox */}
-        <Typography sx={{paddingX: 2}} align='start'> Roles & Responsibilities</Typography>
-        <Box sx={{display:'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-          <Box sx={{width: '80%'}} >
-            <ReactQuill theme="snow" value={value} onChange={setValue} modules={toolbarOptions} />
-          </Box>
+        <Typography sx={{paddingX: 2, marginTop: 2}} align='start'> Roles & Responsibilities</Typography>
+        <Box sx={{minHeight:'150px', display:'flex', flexDirection: 'column', marginX: 2}}>
+            <ReactQuill style={{height:'100px', width:'100%'}} theme="snow" value={value} onChange={setValue} modules={toolbarOptions} />
         </Box>
         {/* skill feature */}
         
@@ -129,6 +138,13 @@ function App() {
           <Typography fontSize={'0.8rem'} align='start'>Add skill keywords (max 10) to make your job more visible to the right candidates</Typography>
           <TextField sx={{width : '100%'}} id="outlined-basic" label="" variant="outlined" />
           <Typography sx={{marginTop: '10px'}} align='start'>Suggested Skills</Typography>
+          <Box sx={{display:'flex',flexWrap: 'wrap', margin:2}}>
+            <Chip sx={{padding:1, marginX: 1}} size='small' label='React' clickable={true} />
+            <Chip sx={{padding:1, marginX: 1}} size='small' label='Angular' clickable={true} />
+            <Chip sx={{padding:1, marginX: 1}} size='small' label='Javascript' clickable={true} />
+            <Chip sx={{padding:1, marginX: 1}} size='small' label='Redux' clickable={true} />
+            <Chip sx={{padding:1, marginX: 1}} size='small' label='NodeJs' clickable={true} />
+          </Box>
         </Box>
 
         <Box sx={{display: 'flex', justifyContent: 'space-between', paddingX: 2}}>
