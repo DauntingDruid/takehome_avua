@@ -28,17 +28,16 @@ function App() {
   const [empStatus, SetEmpStatus] = useState('')
   const [checkVal, setCheckVal] = useState('N');
 
-  console.log(value)
+  console.log(jobTitle.target.value)
 
   // jobTitle handler
   const jobTitleHandler = (text) =>{
-    console.log('text : ',text.target.value)
-    setJobTitle(text)
+    // console.log('text : ',text.target.value)
+    setJobTitle(text.target.value)
   }
   // Company Name
   const companyNameHandler = (text) =>{
-    console.log('text : ',text)
-    setCompanyName(text)
+    setCompanyName(text.target.value)
   }
   // Start Date
   const startDateHandler =(date) =>{
