@@ -25,6 +25,7 @@ function App() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [currentlyWork, SetCurrentlyWork] = useState(Boolean)
+  const [empStatus, SetEmpStatus] = useState('')
   const [checkVal, setCheckVal] = useState('N');
 
   console.log(value)
@@ -52,7 +53,11 @@ function App() {
     setCheckVal(checkVal === 'Y' ? 'N' : 'Y')
   }
   // Location 
+  
   // Employment status (status buttons)
+  const empStatusHandle = (event) => {
+    SetEmpStatus(event.target.value)
+  }
   // Roles & Responsibilities {rich text editor}
   // Skills [array]
 
@@ -69,7 +74,6 @@ function App() {
       <Box sx={{width: '50%',minHeight: '80vh', }}>
         <Box sx={{display:'flex', justifyContent: 'space-between', padding: 2}}>
           <Typography variant="h6" align='left' >Work Experience</Typography> 
-          {/* <Typography>{jobTitle.length > 0 ?jobTitle:<></>}</Typography> */}
           <Button variant="contained" sx={{backgroundColor: '#b8b8b8'}} startIcon={<AddIcon />}>Add New</Button>
         </Box>
 
@@ -106,11 +110,11 @@ function App() {
         {/* employment status buttons + overflow style */}
         <Typography sx={{paddingX: 2}} align='start'> Employment status</Typography>
         <Box sx={{display:'flex', paddingX: 2, flexWrap: 'wrap' }}>
-          <Button sx={{margin: 1}} variant="contained">Full Time</Button>
-          <Button sx={{margin: 1}} variant="outlined">Part Time</Button>
-          <Button sx={{margin: 1}} variant="outlined">Contract/Freelancer</Button>
-          <Button sx={{margin: 1}} variant="outlined">Internship</Button>
-          <Button sx={{margin: 1}} variant="outlined">Any</Button>
+          <Button sx={{margin: 1}} onClick={(event) => empStatusHandle(event)} value='Full Time' variant={empStatus == "Full Time"?"contained":"outlined"} >Full Time</Button>
+          <Button sx={{margin: 1}} onClick={(event) => empStatusHandle(event)} value='Part Time' variant={empStatus == "Part Time"?"contained":"outlined"} >Part Time</Button>
+          <Button sx={{margin: 1}} onClick={(event) => empStatusHandle(event)} value='Contract/Freelancer' variant={empStatus == "Contract/Freelancer"?"contained":"outlined"} >Contract/Freelancer</Button>
+          <Button sx={{margin: 1}} onClick={(event) => empStatusHandle(event)} value='Internship' variant={empStatus == "Internship"?"contained":"outlined"} >Internship</Button>
+          <Button sx={{margin: 1}} onClick={(event) => empStatusHandle(event)} value='Any' variant={empStatus == "Any"?"contained":"outlined"} >Any</Button>
         </Box>
 
         {/* textbox */}
